@@ -1,0 +1,16 @@
+global:
+  scrape_interval: 15s  # Частота сбора метрик (по умолчанию 15 секунд)
+
+scrape_configs:
+  # Мониторинг самого Prometheus
+  - job_name: 'prometheus'
+    static_configs:
+      - targets: ['localhost:9090', 'localhost:8080']
+
+  - job_name: 'Spring Boot Application input'
+    metrics_path: '/actuator/prometheus'
+    scrape_interval: 2s
+    static_configs:
+      - targets: ['localhost:8080']
+        labels:
+          application: 'My Spring Boot Application'
